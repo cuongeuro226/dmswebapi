@@ -1,0 +1,38 @@
+﻿@{
+    ViewBag.Title = "Home Page";
+    Layout = "../Shared/_Layout.cshtml";
+}
+
+<div class="jumbotron">
+  <h1>Welcome to DMS Web API</h1>
+</div>
+
+
+<div>
+  <h2>All Users</h2>
+  <ul id="users" />
+</div>
+
+<script src="~/Scripts/jquery-3.1.1.min.js"></script>
+
+<script type="text/javascript">
+  $(document).ready(function() {
+    // Send an AJAX request
+    $.ajax({
+      url: '/api/users',
+    }).done(function(data) {
+      $.each(data,
+        function(key, item) {
+          $('<li>', { text: formatItem(item) }).appendTo($('#users'));
+        });
+    });
+
+
+  });
+
+  function formatItem(item) {
+    return item.UserName + ':@@' + item.MaUser;
+  }
+
+   
+</script>
